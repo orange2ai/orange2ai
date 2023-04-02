@@ -18,6 +18,8 @@ Telegram  [t.me/aigcnote](https://t.me/aigcnote)
 
 Newsletter [orangeai.substack.com](https://orangeai.substack.com/)
 
+即刻 [orange.ai](https://web.okjike.com/u/FCEA29D3-5BB5-4174-B7A9-1DEE77CEDC46)
+
 ### 联系我
 
 Email i@orangesai.com
