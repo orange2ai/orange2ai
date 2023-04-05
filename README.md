@@ -4,28 +4,21 @@
 
 ## About Me
 
-AI 产品经理。
+一个普通撸毛人、币圈老韭菜、魔兽爱好者、初级程序员、美女爱好者.....
 
-Obsidian 用户。
-
-贯彻卡片笔记法与分享即学习。
+贯彻撸毛的各种方法与分享即学习。其中，也会分享很多个人认为不错的教程给大家。
 
 ## Digital Life
 
-Twitter [@oran_ge](https://twitter.com/oran_ge) 
+Twitter [@oran_ge](https://twitter.com/zgbjmy2008 ) 
 
 Blog [notion.orangesai.com](https://notion.orangesai.com)
 
-Telegram  [t.me/aigcnote](https://t.me/aigcnote) 
+Telegram 骗子太多懒得上
 
-Newsletter [orangeai.substack.com](https://orangeai.substack.com/)
-
-即刻 [orange.ai](https://web.okjike.com/u/FCEA29D3-5BB5-4174-B7A9-1DEE77CEDC46)
-
-Github [orange2ai](https://github.com/orange2ai) 
+Github 平常使用的都是个人玩的，很多代码保存在公司，不能公开，不好意思。
 
 ## Contact
 
-Email <a href="mailto:i@orangesai.com">i@orangesai.com</a>
+Email <a href="mailto:long888@skiff.com">long888@skiff.com</a>
 
-Telegram [@orange_ai](https://t.me/orange_ai)
