@@ -26,6 +26,6 @@ Github [orange2ai](https://github.com/orange2ai)
 
 ## Contact
 
-Email <a href="mailto:i@orangesai.com">i@orangesai.com</a>
+Email <a href="mailto:leo@orangesai.com">leo@orangesai.com</a>
 
 Telegram [@orange_ai](https://t.me/orange_ai)
