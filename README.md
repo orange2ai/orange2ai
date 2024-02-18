@@ -1,4 +1,5 @@
-# Orange's AI
+# Orange.AI
+
 <img src="https://orangesai.com/orange.png" alt="avatar" width="100" height="100">
 
 
