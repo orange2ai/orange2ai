@@ -1,6 +1,6 @@
 # Orange.AI
 
-<img src="https://orangesai.com/orange.png" alt="avatar" width="100" height="100">
+<img src="https://orangesai.com/icon.png" alt="avatar" width="100" height="100">
 
 
 ## About Me
