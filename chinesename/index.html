@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chinese Name Generator</title>
+    <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Chinese Name Generator</h1>
+            <p>Discover your meaningful Chinese name with cultural interpretation</p>
+        </header>
+
+        <main>
+            <section class="input-section">
+                <form id="nameForm">
+                    <div class="input-group">
+                        <label for="englishName">Enter your English name:</label>
+                        <input type="text" id="englishName" name="englishName" 
+                               placeholder="e.g., Michael" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Select your gender:</label>
+                        <div class="radio-group">
+                            <label>
+                                <input type="radio" id="male" name="gender" value="male" checked>
+                                Male
+                            </label>
+                            <label>
+                                <input type="radio" id="female" name="gender" value="female">
+                                Female
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit">Generate Names</button>
+                </form>
+            </section>
+
+            <section id="results" class="results-section">
+                <!-- Results will be inserted here -->
+            </section>
+        </main>
+
+        <footer>
+            <p>Bridging cultures through meaningful names</p>
+        </footer>
+    </div>
+
+    <template id="nameResultTemplate">
+        <div class="name-result">
+            <div class="name-header">
+                <h3 class="chinese-name"></h3>
+                <p class="pinyin"></p>
+            </div>
+            <div class="name-details">
+                <div class="characters-section">
+                    <h4>CHARACTERS</h4>
+                    <p class="characters"></p>
+                </div>
+                <div class="cultural-elements">
+                    <h4>CULTURAL MEANING</h4>
+                    <p></p>
+                </div>
+                <div class="personality">
+                    <h4>PERSONALITY</h4>
+                    <p></p>
+                </div>
+                <div class="english-explanation">
+                    <h4>ENGLISH</h4>
+                    <p></p>
+                </div>
+                <button class="save-name">SAVE</button>
+            </div>
+        </div>
+    </template>
+
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script type="module" src="static/js/main.js"></script>
+</body>
+</html>

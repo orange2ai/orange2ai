@@ -1,0 +1,77 @@
+{
+    "characters": {
+        "米": {
+            "pinyin": "mǐ",
+            "meaning": "rice",
+            "cultural_significance": "Symbol of life and prosperity in Chinese culture",
+            "usage_frequency": "high",
+            "common_combinations": ["米", "米兰", "米娜"]
+        },
+        "明": {
+            "pinyin": "míng",
+            "meaning": "bright, clear, intelligent",
+            "cultural_significance": "Represents wisdom and clarity",
+            "usage_frequency": "high",
+            "common_combinations": ["明亮", "明智", "明月"]
+        },
+        "麦": {
+            "pinyin": "mài",
+            "meaning": "wheat",
+            "cultural_significance": "Symbol of harvest and abundance",
+            "usage_frequency": "medium",
+            "common_combinations": ["麦子", "麦克"]
+        },
+        "凯": {
+            "pinyin": "kǎi",
+            "meaning": "victory, triumph",
+            "cultural_significance": "Represents success and achievement",
+            "usage_frequency": "high",
+            "common_combinations": ["凯旋", "凯歌"]
+        },
+        "克": {
+            "pinyin": "kè",
+            "meaning": "overcome, capable",
+            "cultural_significance": "Shows ability to overcome challenges",
+            "usage_frequency": "medium",
+            "common_combinations": ["克服", "克制"]
+        },
+        "乐": {
+            "pinyin": "lè",
+            "meaning": "joy, happiness",
+            "cultural_significance": "Important value in Chinese culture",
+            "usage_frequency": "high",
+            "common_combinations": ["快乐", "乐观"]
+        },
+        "洛": {
+            "pinyin": "luò",
+            "meaning": "river, flowing",
+            "cultural_significance": "Represents continuous flow and progress",
+            "usage_frequency": "medium",
+            "common_combinations": ["洛阳", "洛河"]
+        },
+        "龙": {
+            "pinyin": "lóng",
+            "meaning": "dragon",
+            "cultural_significance": "Symbol of power and good fortune",
+            "usage_frequency": "high",
+            "common_combinations": ["龙凤", "龙腾"]
+        }
+    },
+    "name_rules": {
+        "structure": {
+            "two_character": ["姓氏", "名字"],
+            "three_character": ["姓氏", "名字1", "名字2"]
+        },
+        "combination_principles": [
+            "Avoid repeated characters",
+            "Ensure harmony between characters",
+            "Consider tone combinations",
+            "Match cultural significance"
+        ],
+        "forbidden_combinations": [
+            "Negative connotations",
+            "Awkward pronunciations",
+            "Culturally inappropriate meanings"
+        ]
+    }
+}
