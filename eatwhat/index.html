@@ -12,10 +12,10 @@
             margin: 0 auto;
             padding: 20px;
             text-align: center;
-            background-color: #fef6f6;
+            background-color: #f4f1ea;
             background-image: 
-                radial-gradient(#ffb7b7 1px, transparent 1px),
-                radial-gradient(#ffb7b7 1px, transparent 1px);
+                radial-gradient(#d6c7b1 1px, transparent 1px),
+                radial-gradient(#d6c7b1 1px, transparent 1px);
             background-size: 20px 20px;
             background-position: 0 0, 10px 10px;
             color: #4a4a4a;
@@ -24,19 +24,32 @@
             background-color: rgba(255, 255, 255, 0.95);
             padding: 30px;
             border-radius: 20px;
-            box-shadow: 0 4px 15px rgba(255, 183, 183, 0.2);
+            box-shadow: 0 4px 15px rgba(165, 142, 130, 0.2);
             margin-bottom: 20px;
-            border: 2px solid #ffd1d1;
+            border: 2px solid #d6c7b1;
             position: relative;
         }
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 80px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="%23a58e82" d="M256 32c-88.004 0-160 71.996-160 160 0 40.558 15.436 77.278 40.511 105.062L256 480l119.489-182.938C400.564 269.278 416 232.558 416 192c0-88.004-71.996-160-160-160zm0 256c-53.019 0-96-42.981-96-96s42.981-96 96-96 96 42.981 96 96-42.981 96-96 96z"/></svg>') no-repeat center;
+            background-size: contain;
+            opacity: 0.8;
+        }
         h1 {
-            color: #ff6b6b;
+            color: #8b7355;
             margin-bottom: 30px;
             font-size: 2.5em;
-            text-shadow: 2px 2px 4px rgba(255, 107, 107, 0.2);
+            text-shadow: 2px 2px 4px rgba(139, 115, 85, 0.2);
+            margin-top: 20px;
         }
         h1::before, h1::after {
-            content: '🌸';
+            content: '🐱';
             margin: 0 10px;
         }
         .input-group {
@@ -45,16 +58,17 @@
         input {
             padding: 12px;
             font-size: 16px;
-            border: 2px solid #ffd1d1;
+            border: 2px solid #d6c7b1;
             border-radius: 25px;
             margin-right: 10px;
             width: 200px;
             outline: none;
             transition: all 0.3s ease;
+            background-color: #fdfbf7;
         }
         input:focus {
-            border-color: #ff6b6b;
-            box-shadow: 0 0 10px rgba(255, 107, 107, 0.2);
+            border-color: #8b7355;
+            box-shadow: 0 0 10px rgba(139, 115, 85, 0.2);
         }
         button {
             padding: 10px 20px;
@@ -64,52 +78,51 @@
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
         }
         button:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
         .add-btn {
-            background-color: #ff9a9e;
+            background-color: #a58e82;
             color: white;
         }
         .add-btn:hover {
-            background-color: #ff8087;
+            background-color: #8b7355;
         }
         .random-btn {
-            background-color: #ff6b6b;
+            background-color: #8b7355;
             color: white;
             margin-top: 20px;
             font-size: 22px;
             padding: 15px 40px;
-            animation: pulse 2s infinite;
+            animation: pawPrint 2s infinite;
         }
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
+        @keyframes pawPrint {
+            0%, 100% {
+                background-color: #8b7355;
             }
             50% {
-                transform: scale(1.05);
-            }
-            100% {
-                transform: scale(1);
+                background-color: #a58e82;
             }
         }
         .result {
             margin-top: 30px;
             padding: 20px;
             font-size: 28px;
-            color: #ff6b6b;
+            color: #8b7355;
             min-height: 50px;
             font-weight: bold;
             position: relative;
             transition: all 0.5s ease;
         }
         .result:not(:empty)::before {
-            content: '🎀 ';
+            content: '🐾';
         }
         .result:not(:empty)::after {
-            content: ' 🎀';
+            content: '🐾';
         }
         @keyframes showResult {
             0% {
@@ -127,29 +140,31 @@
                 opacity: 1;
             }
         }
-        @keyframes sparkle {
+        @keyframes pawSparkle {
             0%, 100% {
                 opacity: 0;
-                transform: scale(0.5);
+                transform: scale(0.5) rotate(0deg);
             }
             50% {
                 opacity: 1;
-                transform: scale(1);
+                transform: scale(1) rotate(360deg);
             }
         }
         .result-animation {
             animation: showResult 0.8s ease-out forwards;
         }
-        .sparkle {
+        .paw-print {
             position: absolute;
             pointer-events: none;
-            background: white;
-            border-radius: 50%;
-            mix-blend-mode: screen;
-            animation: sparkle 0.8s ease-in-out forwards;
+            width: 20px;
+            height: 20px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="%23a58e82" d="M256 32c-88.004 0-160 71.996-160 160 0 40.558 15.436 77.278 40.511 105.062L256 480l119.489-182.938C400.564 269.278 416 232.558 416 192c0-88.004-71.996-160-160-160zm0 256c-53.019 0-96-42.981-96-96s42.981-96 96-96 96 42.981 96 96-42.981 96-96 96z"/></svg>') no-repeat center;
+            background-size: contain;
+            opacity: 0.6;
+            animation: pawSparkle 1s ease-in-out forwards;
         }
         .message {
-            color: #ff9a9e;
+            color: #a58e82;
             margin-top: 10px;
             font-size: 14px;
         }
@@ -159,53 +174,38 @@
             padding: 20px;
             background-color: rgba(255, 255, 255, 0.9);
             border-radius: 15px;
-            border: 2px dashed #ffd1d1;
+            border: 2px dashed #d6c7b1;
         }
         .dish-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 10px;
-            border-bottom: 1px solid #ffe9e9;
+            border-bottom: 1px solid #e6dfd6;
             transition: all 0.3s ease;
         }
         .dish-item:hover {
-            background-color: #fff5f5;
+            background-color: #fdfbf7;
         }
         .delete-btn {
-            background-color: #ffb7b7;
+            background-color: #c1a894;
             color: white;
             padding: 5px 15px;
             font-size: 14px;
         }
         .delete-btn:hover {
-            background-color: #ff9a9e;
+            background-color: #a58e82;
         }
         .show-list-btn {
-            background-color: #b8a9c6;
+            background-color: #b4a089;
             color: white;
             margin-top: 20px;
         }
         .show-list-btn:hover {
-            background-color: #a395b1;
+            background-color: #a58e82;
         }
         .hidden {
             display: none;
-        }
-        /* 添加可爱的装饰元素 */
-        .container::before {
-            content: '🍜';
-            font-size: 24px;
-            position: absolute;
-            top: -10px;
-            left: 20px;
-        }
-        .container::after {
-            content: '🍱';
-            font-size: 24px;
-            position: absolute;
-            top: -10px;
-            right: 20px;
         }
     </style>
 </head>
@@ -213,24 +213,24 @@
     <div class="container">
         <h1>今天 Yuki 吃什么？</h1>
         <div class="input-group">
-            <input type="text" id="dishInput" placeholder="✨ 添加美味菜品 ✨">
-            <button class="add-btn" onclick="addDish()">添加菜品 🌟</button>
+            <input type="text" id="dishInput" placeholder="🐱 添加美味喵食 🐾">
+            <button class="add-btn" onclick="addDish()">添加喵食 🐟</button>
         </div>
-        <button class="random-btn" onclick="getRandomDish()">今天吃什么呢？ 🎯</button>
+        <button class="random-btn" onclick="getRandomDish()">喵喵想吃什么？ 🐾</button>
         <div class="result" id="result"></div>
         <div class="message" id="message"></div>
-        <button class="show-list-btn" onclick="toggleDishList()">查看美食清单 📝</button>
+        <button class="show-list-btn" onclick="toggleDishList()">查看喵食清单 🐱</button>
         <div id="dishList" class="dish-list hidden"></div>
     </div>
 
     <script>
-        // 从 localStorage 获取菜品列表
+        // 获取菜品列表
         function getDishes() {
             const dishes = localStorage.getItem('dishes');
             return dishes ? JSON.parse(dishes) : [];
         }
 
-        // 保存菜品列表到 localStorage
+        // 保存菜品列表
         function saveDishes(dishes) {
             localStorage.setItem('dishes', JSON.stringify(dishes));
         }
@@ -241,20 +241,20 @@
             const dishName = dishInput.value.trim();
             
             if (!dishName) {
-                showMessage('请输入菜品名称！');
+                showMessage('喵喵要输入食物名称哦！');
                 return;
             }
 
             const dishes = getDishes();
             if (dishes.includes(dishName)) {
-                showMessage('这个菜品已经添加过了哦！');
+                showMessage('这个喵食已经添加过了喵！');
                 return;
             }
 
             dishes.push(dishName);
             saveDishes(dishes);
             dishInput.value = '';
-            showMessage('添加成功！');
+            showMessage('添加成功喵！');
             updateDishList();
         }
 
@@ -262,7 +262,7 @@
         function getRandomDish() {
             const dishes = getDishes();
             if (dishes.length === 0) {
-                showMessage('还没有添加任何菜品哦！');
+                showMessage('还没有添加任何喵食哦！');
                 document.getElementById('result').textContent = '';
                 return;
             }
@@ -271,11 +271,10 @@
             const randomIndex = Math.floor(Math.random() * dishes.length);
             const dish = dishes[randomIndex];
             
-            // 清除旧的动画类
+            // 清除旧的动画类和爪印
             resultElement.classList.remove('result-animation');
-            // 清除所有旧的星星
-            const oldSparkles = document.querySelectorAll('.sparkle');
-            oldSparkles.forEach(sparkle => sparkle.remove());
+            const oldPaws = document.querySelectorAll('.paw-print');
+            oldPaws.forEach(paw => paw.remove());
             
             // 触发重排以重新开始动画
             void resultElement.offsetWidth;
@@ -284,44 +283,37 @@
             resultElement.textContent = dish;
             resultElement.classList.add('result-animation');
             
-            // 添加星星特效
-            createSparkles(resultElement);
+            // 添加爪印特效
+            createPawPrints(resultElement);
         }
 
-        // 创建星星特效
-        function createSparkles(element) {
-            const colors = ['#ffeb3b', '#ff6b6b', '#4fc3f7', '#b39ddb', '#81c784'];
-            const numSparkles = 15;
+        // 创建爪印特效
+        function createPawPrints(element) {
+            const numPaws = 12;
             
-            for (let i = 0; i < numSparkles; i++) {
+            for (let i = 0; i < numPaws; i++) {
                 setTimeout(() => {
-                    const sparkle = document.createElement('div');
-                    sparkle.className = 'sparkle';
+                    const paw = document.createElement('div');
+                    paw.className = 'paw-print';
                     
                     // 随机位置
                     const left = Math.random() * 100;
                     const top = Math.random() * 100;
                     
-                    // 随机大小
-                    const size = Math.random() * 8 + 4;
+                    // 随机旋转
+                    const rotate = Math.random() * 360;
                     
-                    // 随机颜色
-                    const color = colors[Math.floor(Math.random() * colors.length)];
-                    
-                    sparkle.style.cssText = `
+                    paw.style.cssText = `
                         left: ${left}%;
                         top: ${top}%;
-                        width: ${size}px;
-                        height: ${size}px;
-                        background: ${color};
-                        box-shadow: 0 0 ${size}px ${color};
+                        transform: rotate(${rotate}deg);
                     `;
                     
-                    element.appendChild(sparkle);
+                    element.appendChild(paw);
                     
-                    // 移除星星
-                    setTimeout(() => sparkle.remove(), 1000);
-                }, i * 50); // 错开时间创建星星
+                    // 移除爪印
+                    setTimeout(() => paw.remove(), 1000);
+                }, i * 50);
             }
         }
 
@@ -331,7 +323,7 @@
             dishes.splice(index, 1);
             saveDishes(dishes);
             updateDishList();
-            showMessage('删除成功！');
+            showMessage('删除成功喵！');
         }
 
         // 更新菜品列表显示
@@ -341,7 +333,7 @@
             
             dishList.innerHTML = dishes.map((dish, index) => `
                 <div class="dish-item">
-                    <span>${dish}</span>
+                    <span>🐾 ${dish}</span>
                     <button class="delete-btn" onclick="deleteDish(${index})">删除</button>
                 </div>
             `).join('');
