@@ -3,109 +3,223 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>今天吃什么？</title>
+    <title>今天 Yuki 吃什么？</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Microsoft YaHei', sans-serif;
+            font-family: 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
             text-align: center;
-            background-color: #f5f5f5;
+            background-color: #fef6f6;
+            background-image: 
+                radial-gradient(#ffb7b7 1px, transparent 1px),
+                radial-gradient(#ffb7b7 1px, transparent 1px);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+            color: #4a4a4a;
         }
         .container {
-            background-color: white;
+            background-color: rgba(255, 255, 255, 0.95);
             padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(255, 183, 183, 0.2);
             margin-bottom: 20px;
+            border: 2px solid #ffd1d1;
+            position: relative;
         }
         h1 {
-            color: #333;
+            color: #ff6b6b;
             margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(255, 107, 107, 0.2);
+        }
+        h1::before, h1::after {
+            content: '🌸';
+            margin: 0 10px;
         }
         .input-group {
             margin-bottom: 20px;
         }
         input {
-            padding: 10px;
+            padding: 12px;
             font-size: 16px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            border: 2px solid #ffd1d1;
+            border-radius: 25px;
             margin-right: 10px;
             width: 200px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        input:focus {
+            border-color: #ff6b6b;
+            box-shadow: 0 0 10px rgba(255, 107, 107, 0.2);
         }
         button {
             padding: 10px 20px;
             font-size: 16px;
             border: none;
-            border-radius: 5px;
+            border-radius: 25px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
         .add-btn {
-            background-color: #4CAF50;
+            background-color: #ff9a9e;
             color: white;
         }
+        .add-btn:hover {
+            background-color: #ff8087;
+        }
         .random-btn {
-            background-color: #2196F3;
+            background-color: #ff6b6b;
             color: white;
             margin-top: 20px;
-            font-size: 20px;
-            padding: 15px 30px;
+            font-size: 22px;
+            padding: 15px 40px;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
         }
         .result {
             margin-top: 30px;
             padding: 20px;
             font-size: 28px;
-            color: #333;
+            color: #ff6b6b;
             min-height: 50px;
+            font-weight: bold;
+            position: relative;
+            transition: all 0.5s ease;
+        }
+        .result:not(:empty)::before {
+            content: '🎀 ';
+        }
+        .result:not(:empty)::after {
+            content: ' 🎀';
+        }
+        @keyframes showResult {
+            0% {
+                transform: scale(0.3) rotate(-10deg);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.2) rotate(5deg);
+            }
+            75% {
+                transform: scale(0.9) rotate(-2deg);
+            }
+            100% {
+                transform: scale(1) rotate(0);
+                opacity: 1;
+            }
+        }
+        @keyframes sparkle {
+            0%, 100% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        .result-animation {
+            animation: showResult 0.8s ease-out forwards;
+        }
+        .sparkle {
+            position: absolute;
+            pointer-events: none;
+            background: white;
+            border-radius: 50%;
+            mix-blend-mode: screen;
+            animation: sparkle 0.8s ease-in-out forwards;
         }
         .message {
-            color: #666;
+            color: #ff9a9e;
             margin-top: 10px;
+            font-size: 14px;
         }
         .dish-list {
             text-align: left;
             margin-top: 20px;
             padding: 20px;
-            background-color: #f9f9f9;
-            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            border: 2px dashed #ffd1d1;
         }
         .dish-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 8px;
-            border-bottom: 1px solid #eee;
+            padding: 10px;
+            border-bottom: 1px solid #ffe9e9;
+            transition: all 0.3s ease;
+        }
+        .dish-item:hover {
+            background-color: #fff5f5;
         }
         .delete-btn {
-            background-color: #ff4444;
+            background-color: #ffb7b7;
             color: white;
-            padding: 5px 10px;
+            padding: 5px 15px;
             font-size: 14px;
         }
+        .delete-btn:hover {
+            background-color: #ff9a9e;
+        }
         .show-list-btn {
-            background-color: #9c27b0;
+            background-color: #b8a9c6;
             color: white;
             margin-top: 20px;
         }
+        .show-list-btn:hover {
+            background-color: #a395b1;
+        }
         .hidden {
             display: none;
+        }
+        /* 添加可爱的装饰元素 */
+        .container::before {
+            content: '🍜';
+            font-size: 24px;
+            position: absolute;
+            top: -10px;
+            left: 20px;
+        }
+        .container::after {
+            content: '🍱';
+            font-size: 24px;
+            position: absolute;
+            top: -10px;
+            right: 20px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>今天吃什么？</h1>
+        <h1>今天 Yuki 吃什么？</h1>
         <div class="input-group">
-            <input type="text" id="dishInput" placeholder="请输入菜品名称">
-            <button class="add-btn" onclick="addDish()">添加菜品</button>
+            <input type="text" id="dishInput" placeholder="✨ 添加美味菜品 ✨">
+            <button class="add-btn" onclick="addDish()">添加菜品 🌟</button>
         </div>
-        <button class="random-btn" onclick="getRandomDish()">今天吃什么？</button>
+        <button class="random-btn" onclick="getRandomDish()">今天吃什么呢？ 🎯</button>
         <div class="result" id="result"></div>
         <div class="message" id="message"></div>
-        <button class="show-list-btn" onclick="toggleDishList()">显示/隐藏菜单</button>
+        <button class="show-list-btn" onclick="toggleDishList()">查看美食清单 📝</button>
         <div id="dishList" class="dish-list hidden"></div>
     </div>
 
@@ -153,9 +267,62 @@
                 return;
             }
 
+            const resultElement = document.getElementById('result');
             const randomIndex = Math.floor(Math.random() * dishes.length);
             const dish = dishes[randomIndex];
-            document.getElementById('result').textContent = dish;
+            
+            // 清除旧的动画类
+            resultElement.classList.remove('result-animation');
+            // 清除所有旧的星星
+            const oldSparkles = document.querySelectorAll('.sparkle');
+            oldSparkles.forEach(sparkle => sparkle.remove());
+            
+            // 触发重排以重新开始动画
+            void resultElement.offsetWidth;
+            
+            // 设置文本并添加动画
+            resultElement.textContent = dish;
+            resultElement.classList.add('result-animation');
+            
+            // 添加星星特效
+            createSparkles(resultElement);
+        }
+
+        // 创建星星特效
+        function createSparkles(element) {
+            const colors = ['#ffeb3b', '#ff6b6b', '#4fc3f7', '#b39ddb', '#81c784'];
+            const numSparkles = 15;
+            
+            for (let i = 0; i < numSparkles; i++) {
+                setTimeout(() => {
+                    const sparkle = document.createElement('div');
+                    sparkle.className = 'sparkle';
+                    
+                    // 随机位置
+                    const left = Math.random() * 100;
+                    const top = Math.random() * 100;
+                    
+                    // 随机大小
+                    const size = Math.random() * 8 + 4;
+                    
+                    // 随机颜色
+                    const color = colors[Math.floor(Math.random() * colors.length)];
+                    
+                    sparkle.style.cssText = `
+                        left: ${left}%;
+                        top: ${top}%;
+                        width: ${size}px;
+                        height: ${size}px;
+                        background: ${color};
+                        box-shadow: 0 0 ${size}px ${color};
+                    `;
+                    
+                    element.appendChild(sparkle);
+                    
+                    // 移除星星
+                    setTimeout(() => sparkle.remove(), 1000);
+                }, i * 50); // 错开时间创建星星
+            }
         }
 
         // 删除菜品
