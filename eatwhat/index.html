@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>今天吃什么？</title>
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-right: 10px;
+            width: 200px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .add-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .random-btn {
+            background-color: #2196F3;
+            color: white;
+            margin-top: 20px;
+            font-size: 20px;
+            padding: 15px 30px;
+        }
+        .result {
+            margin-top: 30px;
+            padding: 20px;
+            font-size: 28px;
+            color: #333;
+            min-height: 50px;
+        }
+        .message {
+            color: #666;
+            margin-top: 10px;
+        }
+        .dish-list {
+            text-align: left;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        .dish-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            border-bottom: 1px solid #eee;
+        }
+        .delete-btn {
+            background-color: #ff4444;
+            color: white;
+            padding: 5px 10px;
+            font-size: 14px;
+        }
+        .show-list-btn {
+            background-color: #9c27b0;
+            color: white;
+            margin-top: 20px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>今天吃什么？</h1>
+        <div class="input-group">
+            <input type="text" id="dishInput" placeholder="请输入菜品名称">
+            <button class="add-btn" onclick="addDish()">添加菜品</button>
+        </div>
+        <button class="random-btn" onclick="getRandomDish()">今天吃什么？</button>
+        <div class="result" id="result"></div>
+        <div class="message" id="message"></div>
+        <button class="show-list-btn" onclick="toggleDishList()">显示/隐藏菜单</button>
+        <div id="dishList" class="dish-list hidden"></div>
+    </div>
+
+    <script>
+        // 从 localStorage 获取菜品列表
+        function getDishes() {
+            const dishes = localStorage.getItem('dishes');
+            return dishes ? JSON.parse(dishes) : [];
+        }
+
+        // 保存菜品列表到 localStorage
+        function saveDishes(dishes) {
+            localStorage.setItem('dishes', JSON.stringify(dishes));
+        }
+
+        // 添加菜品
+        function addDish() {
+            const dishInput = document.getElementById('dishInput');
+            const dishName = dishInput.value.trim();
+            
+            if (!dishName) {
+                showMessage('请输入菜品名称！');
+                return;
+            }
+
+            const dishes = getDishes();
+            if (dishes.includes(dishName)) {
+                showMessage('这个菜品已经添加过了哦！');
+                return;
+            }
+
+            dishes.push(dishName);
+            saveDishes(dishes);
+            dishInput.value = '';
+            showMessage('添加成功！');
+            updateDishList();
+        }
+
+        // 随机获取菜品
+        function getRandomDish() {
+            const dishes = getDishes();
+            if (dishes.length === 0) {
+                showMessage('还没有添加任何菜品哦！');
+                document.getElementById('result').textContent = '';
+                return;
+            }
+
+            const randomIndex = Math.floor(Math.random() * dishes.length);
+            const dish = dishes[randomIndex];
+            document.getElementById('result').textContent = dish;
+        }
+
+        // 删除菜品
+        function deleteDish(index) {
+            const dishes = getDishes();
+            dishes.splice(index, 1);
+            saveDishes(dishes);
+            updateDishList();
+            showMessage('删除成功！');
+        }
+
+        // 更新菜品列表显示
+        function updateDishList() {
+            const dishList = document.getElementById('dishList');
+            const dishes = getDishes();
+            
+            dishList.innerHTML = dishes.map((dish, index) => `
+                <div class="dish-item">
+                    <span>${dish}</span>
+                    <button class="delete-btn" onclick="deleteDish(${index})">删除</button>
+                </div>
+            `).join('');
+        }
+
+        // 显示/隐藏菜单
+        function toggleDishList() {
+            const dishList = document.getElementById('dishList');
+            if (dishList.classList.contains('hidden')) {
+                updateDishList();
+                dishList.classList.remove('hidden');
+            } else {
+                dishList.classList.add('hidden');
+            }
+        }
+
+        // 显示消息
+        function showMessage(message) {
+            const messageElement = document.getElementById('message');
+            messageElement.textContent = message;
+            setTimeout(() => {
+                messageElement.textContent = '';
+            }, 3000);
+        }
+
+        // 支持回车键添加菜品
+        document.getElementById('dishInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                addDish();
+            }
+        });
+
+        // 初始化时从 localStorage 导入已有的菜品数据
+        window.onload = function() {
+            const existingDishes = [
+                "麦当劳", "铜锅涮肉", "海底捞", "和府捞面", "牛肉面",
+                "羊肉串", "wagas", "汉堡", "意面", "沙拉",
+                "蔬菜汁", "711", "自己做", "蔬菜汤", "眉州小吃",
+                "喜家德", "春饼", "滩羊", "巴依老爷", "煎饼"
+            ];
+            
+            const currentDishes = getDishes();
+            if (currentDishes.length === 0) {
+                saveDishes(existingDishes);
+            }
+        };
+    </script>
+</body>
+</html>
