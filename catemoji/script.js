@@ -131,34 +131,54 @@ async function saveImage() {
     }
 
     try {
-        // 获取原始图片
         const response = await fetch(currentImageUrl);
         const blob = await response.blob();
-        
-        // 创建一个Image对象来加载图片
+
+        // 创建图片对象
         const img = new Image();
         img.src = URL.createObjectURL(blob);
-        
+
         await new Promise((resolve, reject) => {
             img.onload = resolve;
             img.onerror = reject;
         });
-        
-        // 创建canvas来转换图片格式
+
+        // 创建canvas进行压缩
         const canvas = document.createElement('canvas');
-        canvas.width = img.width;
-        canvas.height = img.height;
-        
-        // 在canvas上绘制图片
+        const MAX_WIDTH = 800; // 最大宽度
+        const MAX_HEIGHT = 800; // 最大高度
+        let width = img.width;
+        let height = img.height;
+
+        // 计算压缩后的尺寸，保持宽高比
+        if (width > height) {
+            if (width > MAX_WIDTH) {
+                height = Math.round((height * MAX_WIDTH) / width);
+                width = MAX_WIDTH;
+            }
+        } else {
+            if (height > MAX_HEIGHT) {
+                width = Math.round((width * MAX_HEIGHT) / height);
+                height = MAX_HEIGHT;
+            }
+        }
+
+        // 设置canvas尺寸
+        canvas.width = width;
+        canvas.height = height;
+
+        // 在canvas上绘制压缩后的图片
         const ctx = canvas.getContext('2d');
-        ctx.drawImage(img, 0, 0);
-        
-        // 将canvas内容转换为jpg格式
-        const jpgUrl = canvas.toDataURL('image/jpeg', 0.9);
-        
+        ctx.drawImage(img, 0, 0, width, height);
+
+        // 将canvas内容转换为Blob
+        const compressedBlob = await new Promise(resolve => {
+            canvas.toBlob(resolve, 'image/png', 0.8); // 0.8是质量参数
+        });
+
         // 创建下载链接
         const link = document.createElement('a');
-        link.href = jpgUrl;
+        link.href = URL.createObjectURL(compressedBlob);
         
         // 使用本地时间并格式化文件名
         const now = new Date();
@@ -169,7 +189,7 @@ async function saveImage() {
         const minute = String(now.getMinutes()).padStart(2, '0');
         const second = String(now.getSeconds()).padStart(2, '0');
         
-        const fileName = `猫猫表情包_${year}${month}${day}_${hour}${minute}${second}.jpg`;
+        const fileName = `柴猫表情包_${year}${month}${day}_${hour}${minute}${second}.png`;
         link.download = fileName;
         
         // 模拟点击下载
@@ -178,6 +198,7 @@ async function saveImage() {
         document.body.removeChild(link);
         
         // 清理资源
+        URL.revokeObjectURL(link.href);
         URL.revokeObjectURL(img.src);
     } catch (error) {
         console.error('保存图片失败:', error);
