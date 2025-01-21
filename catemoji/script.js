@@ -131,24 +131,54 @@ async function saveImage() {
     }
 
     try {
+        // 获取原始图片
         const response = await fetch(currentImageUrl);
         const blob = await response.blob();
         
-        // 创建一个临时的a标签用于下载
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
+        // 创建一个Image对象来加载图片
+        const img = new Image();
+        img.src = URL.createObjectURL(blob);
         
-        // 获取文件名
-        const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-        link.download = `柴犬表情包_${timestamp}.png`;
+        await new Promise((resolve, reject) => {
+            img.onload = resolve;
+            img.onerror = reject;
+        });
+        
+        // 创建canvas来转换图片格式
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        
+        // 在canvas上绘制图片
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+        
+        // 将canvas内容转换为jpg格式
+        const jpgUrl = canvas.toDataURL('image/jpeg', 0.9);
+        
+        // 创建下载链接
+        const link = document.createElement('a');
+        link.href = jpgUrl;
+        
+        // 使用本地时间并格式化文件名
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        const hour = String(now.getHours()).padStart(2, '0');
+        const minute = String(now.getMinutes()).padStart(2, '0');
+        const second = String(now.getSeconds()).padStart(2, '0');
+        
+        const fileName = `猫猫表情包_${year}${month}${day}_${hour}${minute}${second}.jpg`;
+        link.download = fileName;
         
         // 模拟点击下载
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
         
-        // 清理URL对象
-        URL.revokeObjectURL(link.href);
+        // 清理资源
+        URL.revokeObjectURL(img.src);
     } catch (error) {
         console.error('保存图片失败:', error);
         alert('保存失败，请重试！');
