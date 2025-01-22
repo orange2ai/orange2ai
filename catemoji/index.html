@@ -289,6 +289,32 @@
             white-space: pre-wrap;
             display: none;
         }
+
+        /* 添加动画元素的样式 */
+        .celebration-emoji {
+            position: fixed;
+            font-size: 20px;
+            pointer-events: none;
+            z-index: 1000;
+            animation: floatAway 1.5s ease-out forwards;
+        }
+
+        @keyframes floatAway {
+            0% {
+                transform: translate(-50%, -50%) scale(0.5);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            100% {
+                transform: translate(
+                    calc(-50% + var(--x-end) * 100px),
+                    calc(-50% + var(--y-end) * 100px)
+                ) scale(1.2);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 <body>
@@ -332,6 +358,34 @@
 
         // Worker URL - 部署后需要修改为实际的Worker URL
         const WORKER_URL = 'https://emoji.otiron.workers.dev/';
+
+        function createCelebrationEffect(centerX, centerY) {
+            const emojis = ['🐱', '😺', '😸', '😻', '😽'];
+            const numEmojis = 12;
+
+            for (let i = 0; i < numEmojis; i++) {
+                const emoji = document.createElement('div');
+                emoji.className = 'celebration-emoji';
+                emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                
+                // 计算散开方向（围绕一个圆）
+                const angle = (i / numEmojis) * 2 * Math.PI;
+                const xEnd = Math.cos(angle);
+                const yEnd = Math.sin(angle);
+                
+                emoji.style.setProperty('--x-end', xEnd);
+                emoji.style.setProperty('--y-end', yEnd);
+                emoji.style.left = `${centerX}px`;
+                emoji.style.top = `${centerY}px`;
+                
+                document.body.appendChild(emoji);
+                
+                // 动画结束后移除元素
+                emoji.addEventListener('animationend', () => {
+                    document.body.removeChild(emoji);
+                });
+            }
+        }
 
         async function sendRequest() {
             const inputText = document.getElementById('input').value.trim();
@@ -415,6 +469,12 @@
                                         imagePreview.appendChild(img);
                                         currentImageUrl = content;
                                         saveButton.disabled = false;
+
+                                        // 在图片生成后添加庆祝动画
+                                        const rect = imagePreview.getBoundingClientRect();
+                                        const centerX = rect.left + rect.width / 2;
+                                        const centerY = rect.top + rect.height / 2;
+                                        createCelebrationEffect(centerX, centerY);
                                     }
                                 }
                             } else if (eventType === 'done') {
