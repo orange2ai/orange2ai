@@ -176,28 +176,52 @@
             }
         }
 
-        #loading {
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 15px 0;
+            height: 60px;
             position: relative;
+            overflow: hidden;
         }
 
         #loading::after {
-            content: '🐱';
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 24px;
-            animation: catBounce 0.6s infinite alternate;
+            display: none;
         }
 
-        @keyframes catBounce {
+        /* 修改移动的猫咪动画 */
+        @keyframes catRun {
             0% {
-                transform: translate(-50%, -50%) scale(1);
+                transform: translateX(-50px);
+                opacity: 0;
+            }
+            15% {
+                opacity: 1;
+            }
+            85% {
+                opacity: 1;
             }
             100% {
-                transform: translate(-50%, -50%) scale(1.2);
+                transform: translateX(calc(100vw - 50px));
+                opacity: 0;
             }
         }
+
+        .loading .running-cat {
+            position: absolute;
+            font-size: 24px;
+            animation: catRun 3s linear infinite;
+            width: 30px;
+            text-align: center;
+            left: 0;
+        }
+
+        /* 调整每只猫咪的垂直位置和动画延迟 */
+        .loading .running-cat:nth-child(1) { top: 0; animation-delay: 0s; }
+        .loading .running-cat:nth-child(2) { top: 30px; animation-delay: 0.6s; }
+        .loading .running-cat:nth-child(3) { top: 15px; animation-delay: 1.2s; }
+        .loading .running-cat:nth-child(4) { top: 45px; animation-delay: 1.8s; }
+        .loading .running-cat:nth-child(5) { top: 5px; animation-delay: 2.4s; }
 
         .result-section {
             background-color: var(--card-background);
@@ -239,24 +263,6 @@
 
         .image-preview img:hover {
             transform: scale(1.02);
-        }
-
-        .loading {
-            display: none;
-            text-align: center;
-            margin: 15px 0;
-        }
-
-        .loading::after {
-            content: "生成中...";
-            color: var(--primary-color);
-            animation: dots 1.5s infinite;
-        }
-
-        @keyframes dots {
-            0%, 20% { content: "生成中."; }
-            40% { content: "生成中.."; }
-            60%, 100% { content: "生成中..."; }
         }
 
         .icon {
@@ -315,6 +321,35 @@
                 opacity: 0;
             }
         }
+
+        /* 添加纯按钮样式类 */
+        .action-button-container {
+            margin-top: 15px;
+        }
+
+        .action-button-container button {
+            width: 100%;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-button-container button:hover {
+            transform: translateY(-3px);
+            background-color: var(--secondary-color);
+            box-shadow: 0 5px 15px rgba(255, 158, 205, 0.4);
+        }
     </style>
 </head>
 <body>
@@ -341,9 +376,9 @@
             <h2>生成结果</h2>
             <div id="response"></div>
             <div class="image-preview" id="imagePreview"></div>
-            <div class="button-group" style="margin-top: 15px;">
-                <button onclick="saveImage()" class="secondary" id="saveButton" disabled>
-                    <span class="icon">💾</span>
+            <div class="action-button-container">
+                <button onclick="saveImage()" id="saveButton" disabled>
+                    <span class="icon">✨</span>
                     保存表情包
                 </button>
             </div>
@@ -412,6 +447,17 @@
             debug.textContent = '';
 
             try {
+                // 修改加载动画的猫咪数量
+                const loading = document.getElementById('loading');
+                loading.innerHTML = ''; // 清空原有内容
+                for (let i = 0; i < 5; i++) {  // 减少猫咪数量到5只
+                    const cat = document.createElement('div');
+                    cat.className = 'running-cat';
+                    cat.textContent = '🐱';
+                    loading.appendChild(cat);
+                }
+                loading.style.display = 'block';
+
                 // 发送请求到Worker
                 const response = await fetch(WORKER_URL, {
                     method: 'POST',
