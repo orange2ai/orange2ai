@@ -5,19 +5,13 @@
 
 ## About Me
 
-AI Research: at a AI startup company.
-
-Product Management: connect and align all teams.
-
+CEO of ListenHub
+ex PM of Hailuo AI
 Learning by Sharing: stay hungry.
 
 ## Creative Archive 
 
 Twitter [@oran_ge](https://twitter.com/oran_ge) 
-
-即刻 [orange.ai](https://web.okjike.com/u/FCEA29D3-5BB5-4174-B7A9-1DEE77CEDC46)
-
-Newsletter [quail.ink/orange](https://quail.ink/orange)
 
 
 ## Contact Me
