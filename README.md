@@ -6,7 +6,9 @@
 ## About Me
 
 CEO of ListenHub
+
 ex PM of Hailuo AI
+
 Learning by Sharing: stay hungry.
 
 ## Creative Archive 
